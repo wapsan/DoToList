@@ -69,12 +69,12 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
         cell.nextButtonAction = { self.pushDetailVC(with: note) }
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let height = self.view.frame.height * 0.2
-        return height
-    }
-    
+//    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        let height = self.view.frame.height * 0.2
+//        return height
+//    }
+//    
   
  
     

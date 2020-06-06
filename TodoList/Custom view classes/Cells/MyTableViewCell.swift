@@ -1,14 +1,16 @@
-
 import UIKit
+import SnapKit
 
 class MyTableViewCell: UITableViewCell {
-    
     
     //MARK: - GUI Properties
     lazy var customTittleLabel: UILabel = {
         let label = UILabel()
         label.text = "Tittle label"
         label.font = .boldSystemFont(ofSize: 20)
+        label.numberOfLines = 1
+        label.minimumScaleFactor = 0.5
+        label.adjustsFontSizeToFitWidth = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -17,6 +19,7 @@ class MyTableViewCell: UITableViewCell {
         let label = UILabel()
         label.text = "Detail label text"
         label.font = .systemFont(ofSize: 17)
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -35,6 +38,16 @@ class MyTableViewCell: UITableViewCell {
         return button
     }()
     
+    private lazy var containerView: UIView = {
+       let view = UIView()
+        view.backgroundColor = .darkGray
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOffset = .init(width: 0, height: 5)
+        view.layer.shadowOpacity = 5
+        view.layer.cornerRadius = 20
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     //MARK: - Properties
     static let reuseID = "MyTableViewCell"
@@ -43,6 +56,8 @@ class MyTableViewCell: UITableViewCell {
     //MARK: - Initilization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: MyTableViewCell.reuseID)
+        self.setUpContainerView()
+        self.initCell()
     }
     
     required init?(coder: NSCoder) {
@@ -52,68 +67,57 @@ class MyTableViewCell: UITableViewCell {
     //MARK: - Publick methods
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.addSubview(self.customTittleLabel)
-        self.addSubview(self.customDetailLabel)
-        self.addSubview(self.dateLabel)
-        self.addSubview(self.nextButton)
-        self.selectionStyle = .none
-        self.setUpContentView()
-        self.setUpConstraints()
     }
     
     //MARK: - Private methods
-    private func setUpContentView() {
-        self.contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
-        self.contentView.backgroundColor = .darkGray
-        self.contentView.layer.cornerRadius = 20
-        NSLayoutConstraint.activate([
-            self.contentView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
-            self.contentView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8),
-            self.contentView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8),
-            self.contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 8),
-        ])
+    private func setUpContainerView() {
+        self.addSubview(self.containerView)
+        self.containerView.addSubview(self.customTittleLabel)
+        self.containerView.addSubview(self.customDetailLabel)
+        self.containerView.addSubview(self.dateLabel)
+        self.containerView.addSubview(self.nextButton)
+        self.containerView.snp.makeConstraints { (make) in
+            make.top.left.right.bottom.equalToSuperview().inset(8)
+        }
     }
     
+    private func initCell() {
+        self.setUpCell()
+        self.setUpContainerView()
+        self.setUpConstraints()
+    }
+    
+    private func setUpCell() {
+        self.selectionStyle = .none
+    }
+
     //MARK: - Constraints
     private func setUpConstraints() {
-        NSLayoutConstraint.activate([
-            self.customTittleLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor,
-                                                         constant: 16),
-            self.customTittleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor,
-                                                        constant: 8),
-            self.customTittleLabel.heightAnchor.constraint(equalTo: self.customDetailLabel.heightAnchor,
-                                                           multiplier: 1),
-            self.customTittleLabel.widthAnchor.constraint(equalTo: self.contentView.widthAnchor,
-                                                          multiplier: 0.6)
-        ])
+        self.customTittleLabel.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().offset(16)
+            make.width.equalToSuperview().multipliedBy(0.6)
+            make.centerY.equalTo(self.nextButton.snp.centerY)
+        }
         
-        NSLayoutConstraint.activate([
-            self.customDetailLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor,
-                                                         constant:  16),
-            self.customDetailLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor,
-                                                           constant: -8),
-            self.customDetailLabel.widthAnchor.constraint(equalTo: self.customTittleLabel.widthAnchor,
-                                                          multiplier: 1),
-            self.customDetailLabel.topAnchor.constraint(equalTo: self.customTittleLabel.bottomAnchor,
-                                                        constant: 8)
-        ])
+        self.customDetailLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.customTittleLabel.snp.bottom).offset(8)
+            make.left.equalToSuperview().inset(16)
+            make.bottom.equalToSuperview().inset(8)
+            make.width.equalTo(self.customTittleLabel.snp.width)
+        }
         
-        NSLayoutConstraint.activate([
-            self.dateLabel.leftAnchor.constraint(equalTo: self.customDetailLabel.rightAnchor,
-                                                 constant: 8),
-            self.dateLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor,
-                                                  constant: -16),
-            self.dateLabel.centerYAnchor.constraint(equalTo: self.customDetailLabel.centerYAnchor),
-            self.dateLabel.heightAnchor.constraint(equalTo: self.customDetailLabel.heightAnchor,
-                                                   multiplier: 1)
-        ])
+        self.dateLabel.snp.makeConstraints { (make) in
+            make.left.greaterThanOrEqualTo(self.customDetailLabel.snp.right).offset(8)
+            make.right.equalToSuperview().inset(16)
+            make.centerY.equalTo(self.customDetailLabel.snp.centerY)
+        }
         
-        NSLayoutConstraint.activate([
-            self.nextButton.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -16),
-            self.nextButton.centerYAnchor.constraint(equalTo: self.customTittleLabel.centerYAnchor),
-            self.nextButton.heightAnchor.constraint(equalTo: self.dateLabel.heightAnchor, multiplier: 1),
-            self.nextButton.widthAnchor.constraint(equalTo: self.nextButton.heightAnchor, multiplier: 1)
-        ])
+        self.nextButton.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().inset(8)
+            make.right.equalToSuperview().inset(8)
+            make.centerY.equalTo(self.customTittleLabel)
+            make.height.width.equalTo(50)
+        }
     }
     
     //MARK: - Actions
