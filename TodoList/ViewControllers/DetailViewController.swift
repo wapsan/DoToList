@@ -6,16 +6,18 @@ class DetailViewController: UIViewController {
     //MARK: - GUI roperties
     lazy var noteTittleLabel: UILabel = {
         let label = UILabel()
-        label.text = self.note?.tittle
-        label.textAlignment = .left
+        label.text = "Tittle"
+        label.font = .boldSystemFont(ofSize: 20)
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     lazy var noteDescriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = self.note?.description
-        label.textAlignment = .left
+        label.text = "Description"
+        label.font = .boldSystemFont(ofSize: 20)
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -25,6 +27,13 @@ class DetailViewController: UIViewController {
         textField.borderStyle = .roundedRect
         textField.delegate = self
         textField.tag = 1
+        textField.borderStyle = .none
+        textField.layer.borderColor = UIColor.black.cgColor
+        textField.layer.borderWidth = 1
+        textField.layer.cornerRadius = 20
+        textField.font = .systemFont(ofSize: 17)
+        textField.layer.borderColor = UIColor.black.cgColor
+        textField.layer.borderWidth = 1
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -34,8 +43,28 @@ class DetailViewController: UIViewController {
         textField.borderStyle = .roundedRect
         textField.delegate = self
         textField.tag = 2
+        textField.borderStyle = .none
+        textField.layer.borderColor = UIColor.black.cgColor
+        textField.layer.borderWidth = 1
+        textField.layer.cornerRadius = 20
+        textField.font = .systemFont(ofSize: 17)
+        textField.layer.borderColor = UIColor.black.cgColor
+        textField.layer.borderWidth = 1
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
+    }()
+    
+    lazy var createNoteButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Create note", for: .normal)
+        button.tintColor = .black
+        button.backgroundColor  = .orange
+        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 20
+        button.addTarget(self, action: #selector(self.createNotePressed), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     //MARK: - Private properties
@@ -44,9 +73,8 @@ class DetailViewController: UIViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setGuiElements()
+        self.setGuiElements()
         self.view.backgroundColor = .yellow
-       
     }
     
     //MARK: - Private methods
@@ -55,44 +83,61 @@ class DetailViewController: UIViewController {
         self.view.addSubview(self.noteDescriptionLabel)
         self.view.addSubview(self.noteTittleTextField)
         self.view.addSubview(self.noteDescriptionTextField)
+        self.view.addSubview(self.createNoteButton)
         self.setConstrasints()
+    }
+    
+    private func resetTextFields() {
+        self.noteTittleTextField.text = nil
+        self.noteDescriptionTextField.text = nil
     }
     
     //MARK: - Constraints
     private func setConstrasints() {
         let safeArea = self.view.safeAreaLayoutGuide
-        NSLayoutConstraint.activate([
-            self.noteTittleLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 16),
-            self.noteTittleLabel.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 16),
-            self.noteTittleLabel.heightAnchor.constraint(equalToConstant: 35)
-        ])
+        self.noteTittleLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(safeArea.snp.top).inset(8)
+            make.left.right.equalToSuperview().inset(16)
+            make.bottom.equalTo(self.noteTittleTextField.snp.top).offset(-8)
+        }
         
-        NSLayoutConstraint.activate([
-            self.noteTittleTextField.centerYAnchor.constraint(equalTo: self.noteTittleLabel.centerYAnchor),
-            self.noteTittleTextField.heightAnchor.constraint(equalTo: self.noteTittleLabel.heightAnchor),
-            self.noteTittleTextField.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -16),
-            self.noteTittleTextField.leftAnchor.constraint(equalTo: self.noteTittleLabel.rightAnchor, constant: 16),
-            self.noteTittleTextField.widthAnchor.constraint(equalTo: self.noteTittleLabel.widthAnchor, multiplier: 1)
-        ])
+        self.noteTittleTextField.snp.makeConstraints { (make) in
+            make.left.right.equalToSuperview().inset(16)
+            make.height.equalTo(50)
+            make.bottom.equalTo(self.noteDescriptionLabel.snp.top).offset(-8)
+        }
         
-        NSLayoutConstraint.activate([
-            self.noteDescriptionLabel.topAnchor.constraint(equalTo: self.noteTittleLabel.bottomAnchor, constant: 16),
-            self.noteDescriptionLabel.heightAnchor.constraint(equalTo: self.noteTittleLabel.heightAnchor, multiplier: 1),
-            self.noteDescriptionLabel.centerXAnchor.constraint(equalTo: self.noteTittleLabel.centerXAnchor),
-            self.noteDescriptionLabel.widthAnchor.constraint(equalTo: self.noteTittleLabel.widthAnchor, multiplier: 1)
-        ])
+        self.noteDescriptionLabel.snp.makeConstraints { (make) in
+            make.left.right.equalToSuperview().inset(16)
+            make.bottom.equalTo(self.noteDescriptionTextField.snp.top).offset(-8)
+        }
         
-        NSLayoutConstraint.activate([
-            self.noteDescriptionTextField.topAnchor.constraint(equalTo: self.noteTittleTextField.bottomAnchor, constant: 16),
-            self.noteDescriptionTextField.heightAnchor.constraint(equalTo: self.noteTittleTextField.heightAnchor, multiplier: 1),
-            self.noteDescriptionTextField.centerXAnchor.constraint(equalTo: self.noteTittleTextField.centerXAnchor),
-            self.noteDescriptionTextField.widthAnchor.constraint(equalTo: self.noteTittleTextField.widthAnchor, multiplier: 1)
-        ])
+        self.noteDescriptionTextField.snp.makeConstraints { (make) in
+            make.left.right.equalToSuperview().inset(16)
+            make.height.equalTo(50)
+            make.bottom.equalTo(self.createNoteButton.snp.top).offset(-16)
+        }
+        
+        self.createNoteButton.snp.makeConstraints { (make) in
+            make.width.equalToSuperview().multipliedBy(0.5)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(50)
+        }
     }
     
     //MARK: - Publick methods
     func setNote(to note: Note) {
         self.note = note
+    }
+    
+    //MARK: - Action
+    @objc private func createNotePressed() {
+        guard let noteTittle = self.noteTittleTextField.text else { return }
+        guard let noteDescription = self.noteDescriptionTextField.text else { return }
+        let date = DateManager.shared.currnetDate
+        let note = Note(tittle: noteTittle, description: noteDescription, date: date)
+        NotesFileManager.shared.save(note: note)
+        self.resetTextFields()
     }
     
 }
@@ -105,11 +150,11 @@ extension DetailViewController: UITextFieldDelegate {
         guard let textFromTextField = textField.text else { return false}
         if textField.tag == 1 {
             self.noteTittleLabel.text = textFromTextField
-            self.note?.tittle = textFromTextField
+            self.note?.noteTittle = textFromTextField
             textField.text = nil
         } else {
             self.noteDescriptionLabel.text = textFromTextField
-            self.note?.description = textFromTextField
+            self.note?.noteDescription = textFromTextField
             textField.text = nil
         }
         return true

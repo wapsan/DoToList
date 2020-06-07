@@ -1,25 +1,37 @@
 import UIKit
 
-
-class Note {
-
-    var tittle: String
-    var description: String
+class Note: NSObject, NSCoding {
+    
+    //MARK: - Properties
+    var noteTittle: String
+    var noteDescription: String
     var date: String
     
+    //MARK: - Initialization
     init(tittle: String, description: String, date: String) {
-        self.tittle = tittle
-        self.description = description
+        self.noteTittle = tittle
+        self.noteDescription = description
         self.date = date
     }
     
-    static func createNotesArryay() -> [Note] {
-        let noteArray = [Note(tittle: "Buy products", description: "Milk, eggs, orange", date: "08.12.20"),
-                         Note(tittle: "Go to gym", description: "Train chest", date: "08.13.20"),
-                         Note(tittle: "Help mother at home", description: "_", date: "08.15.20"),
-                         Note(tittle: "Learn swift", description: "Constraint programaticaly", date: "08.17.20"),
-                         Note(tittle: "Do someting", description: "_", date: "08.18.20")]
-        return noteArray
+    //MARK: - Properties keys structure
+    struct PropertyKeys {
+        static let  noteTittle = "noteTittle"
+        static let noteDescription = "noteDescription"
+        static let date = "date"
     }
     
+    //MARK: - NSCoding protocol
+    func encode(with coder: NSCoder) {
+        coder.encode(self.noteTittle, forKey: PropertyKeys.noteTittle)
+        coder.encode(self.noteDescription, forKey: PropertyKeys.noteDescription)
+        coder.encode(self.date, forKey: PropertyKeys.date)
+    }
+    
+    required init?(coder: NSCoder) {
+        self.noteTittle = coder.decodeObject(forKey: PropertyKeys.noteTittle) as! String
+        self.noteDescription = coder.decodeObject(forKey: PropertyKeys.noteDescription) as! String
+        self.date = coder.decodeObject(forKey: PropertyKeys.date) as! String
+    }
+
 }

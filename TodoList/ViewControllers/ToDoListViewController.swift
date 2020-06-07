@@ -1,11 +1,9 @@
-
 import UIKit
 
 class ToDoListViewController: UIViewController {
 
     //MARK: - Private properties
-    private var model: [String] = Array(repeating: "Hello Sweetie", count: 10)
-    private var noteArray: [Note] = Note.createNotesArryay()
+    private var noteArray: [Note] = []
     
     //MARK: - GUI Properties
     lazy var tableView: UITableView = {
@@ -19,12 +17,9 @@ class ToDoListViewController: UIViewController {
     }()
     
     private func setUpConstrains() {
-        NSLayoutConstraint.activate([
-            self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
-            self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-            self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-        ])
+        self.tableView.snp.makeConstraints { (make) in
+            make.top.left.right.bottom.equalToSuperview()
+        }
     }
     
     //MARK: - Lifecycle
@@ -34,11 +29,12 @@ class ToDoListViewController: UIViewController {
         self.view.backgroundColor = .red
         self.view.addSubview(self.tableView)
         self.setUpConstrains()
-        
+        self.setUpNavigationBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.noteArray = NotesFileManager.shared.getNoteList()
         self.tableView.reloadData()
     }
     
@@ -49,7 +45,19 @@ class ToDoListViewController: UIViewController {
         detailVC.navigationItem.title = note.date
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
-
+    
+    private func setUpNavigationBar() {
+        let addNoteButton = UIBarButtonItem(barButtonSystemItem: .add,
+                                            target: self,
+                                            action: #selector(self.addNote))
+        self.navigationItem.rightBarButtonItem = addNoteButton
+    }
+   
+    //MARK: - Actions
+    @objc private func addNote() {
+        let detailVC = DetailViewController()
+        self.navigationController?.pushViewController(detailVC, animated: true)
+    }
 }
 
 //MARK: - UITableViewDataSource, UITableViewDelegate
@@ -63,20 +71,27 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: MyTableViewCell.reuseID,
                                                       for: indexPath) as! MyTableViewCell
         let note = self.noteArray[indexPath.row]
-        cell.customTittleLabel.text = note.tittle
-        cell.customDetailLabel.text = note.description
+        cell.customTittleLabel.text = note.noteTittle
+        cell.customDetailLabel.text = note.noteDescription
         cell.dateLabel.text = note.date
         cell.nextButtonAction = { self.pushDetailVC(with: note) }
         return cell
     }
-//    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let height = self.view.frame.height * 0.2
-//        return height
-//    }
-//    
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
   
- 
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let deletedNoteIndex = indexPath.row
+            NotesFileManager.shared.removeNote(at: deletedNoteIndex)
+            self.noteArray.remove(at: deletedNoteIndex)
+            self.tableView.beginUpdates()
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            self.tableView.endUpdates()
+        }
+    }
     
 }
  

@@ -85,6 +85,7 @@ class MyTableViewCell: UITableViewCell {
         self.setUpCell()
         self.setUpContainerView()
         self.setUpConstraints()
+        self.containerView.isUserInteractionEnabled = false
     }
     
     private func setUpCell() {
@@ -100,7 +101,7 @@ class MyTableViewCell: UITableViewCell {
         }
         
         self.customDetailLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.customTittleLabel.snp.bottom).offset(8)
+            make.top.equalTo(self.customTittleLabel.snp.bottom).offset(16)
             make.left.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().inset(8)
             make.width.equalTo(self.customTittleLabel.snp.width)
