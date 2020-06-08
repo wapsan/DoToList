@@ -1,5 +1,6 @@
 import UIKit
 
+
 class Note: NSObject, NSCoding {
     
     //MARK: - Properties

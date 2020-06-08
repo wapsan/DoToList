@@ -4,6 +4,7 @@ class ToDoListViewController: UIViewController {
 
     //MARK: - Private properties
     private var noteArray: [Note] = []
+    private var codableNoteArray: [NoteCodable] = []
     
     //MARK: - GUI Properties
     lazy var tableView: UITableView = {
@@ -34,7 +35,9 @@ class ToDoListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.noteArray = NotesFileManager.shared.getNoteList()
+        //self.noteArray = NotesFileManager.shared.getNoteList()
+       // self.codableNoteArray = CodableFileManager.shared.getNoteList()
+        self.codableNoteArray = UserDefaultsManager.shared.getNoteList()
         self.tableView.reloadData()
     }
     
@@ -64,17 +67,17 @@ class ToDoListViewController: UIViewController {
 extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.noteArray.count
+        return self.codableNoteArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: MyTableViewCell.reuseID,
                                                       for: indexPath) as! MyTableViewCell
-        let note = self.noteArray[indexPath.row]
+        let note = self.codableNoteArray[indexPath.row]
         cell.customTittleLabel.text = note.noteTittle
         cell.customDetailLabel.text = note.noteDescription
         cell.dateLabel.text = note.date
-        cell.nextButtonAction = { self.pushDetailVC(with: note) }
+    //    cell.nextButtonAction = { self.pushDetailVC(with: note) }
         return cell
     }
     
@@ -85,8 +88,15 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let deletedNoteIndex = indexPath.row
-            NotesFileManager.shared.removeNote(at: deletedNoteIndex)
-            self.noteArray.remove(at: deletedNoteIndex)
+           // NotesFileManager.shared.removeNote(at: deletedNoteIndex)
+           //   self.noteArray.remove(at: deletedNoteIndex)
+            
+            //CodableFileManager.shared.removeNote(at: deletedNoteIndex)
+            UserDefaultsManager.shared.removeNote(at: deletedNoteIndex)
+            
+            self.codableNoteArray.remove(at: deletedNoteIndex)
+            
+            
             self.tableView.beginUpdates()
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
             self.tableView.endUpdates()

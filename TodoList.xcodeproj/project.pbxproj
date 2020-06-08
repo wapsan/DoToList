@@ -18,6 +18,9 @@
 		1367C17224803718001C6465 /* GreetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1367C17124803718001C6465 /* GreetingView.swift */; };
 		1392B322248D4CE10081041A /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392B321248D4CE10081041A /* FileManager.swift */; };
 		1392B324248D4F9D0081041A /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392B323248D4F9D0081041A /* DateManager.swift */; };
+		13BC2E57248E618C0018E739 /* NoteCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BC2E56248E618C0018E739 /* NoteCodable.swift */; };
+		13BC2E59248E647F0018E739 /* CodableFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BC2E58248E647F0018E739 /* CodableFileManager.swift */; };
+		13BC2E5B248E72070018E739 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BC2E5A248E72070018E739 /* UserDefaultsManager.swift */; };
 		13C882F42482CCFA00B51067 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C882F32482CCFA00B51067 /* DetailViewController.swift */; };
 		13C882F82482CDF500B51067 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C882F72482CDF500B51067 /* Note.swift */; };
 /* End PBXBuildFile section */
@@ -35,6 +38,9 @@
 		1367C17124803718001C6465 /* GreetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingView.swift; sourceTree = "<group>"; };
 		1392B321248D4CE10081041A /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		1392B323248D4F9D0081041A /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
+		13BC2E56248E618C0018E739 /* NoteCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCodable.swift; sourceTree = "<group>"; };
+		13BC2E58248E647F0018E739 /* CodableFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableFileManager.swift; sourceTree = "<group>"; };
+		13BC2E5A248E72070018E739 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		13C882F32482CCFA00B51067 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		13C882F72482CDF500B51067 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,6 +111,8 @@
 			isa = PBXGroup;
 			children = (
 				1392B321248D4CE10081041A /* FileManager.swift */,
+				13BC2E58248E647F0018E739 /* CodableFileManager.swift */,
+				13BC2E5A248E72070018E739 /* UserDefaultsManager.swift */,
 				1392B323248D4F9D0081041A /* DateManager.swift */,
 			);
 			path = Helpers;
@@ -131,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				13C882F72482CDF500B51067 /* Note.swift */,
+				13BC2E56248E618C0018E739 /* NoteCodable.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -214,10 +223,13 @@
 				131FE03624801F10003D27B6 /* ToDoListViewController.swift in Sources */,
 				1392B324248D4F9D0081041A /* DateManager.swift in Sources */,
 				1367C17224803718001C6465 /* GreetingView.swift in Sources */,
+				13BC2E5B248E72070018E739 /* UserDefaultsManager.swift in Sources */,
 				131FE02624801703003D27B6 /* RootviewController.swift in Sources */,
+				13BC2E57248E618C0018E739 /* NoteCodable.swift in Sources */,
 				13C882F82482CDF500B51067 /* Note.swift in Sources */,
 				131FE02224801703003D27B6 /* AppDelegate.swift in Sources */,
 				131FE03A24802402003D27B6 /* MyTableViewCell.swift in Sources */,
+				13BC2E59248E647F0018E739 /* CodableFileManager.swift in Sources */,
 				1392B322248D4CE10081041A /* FileManager.swift in Sources */,
 				131FE02424801703003D27B6 /* SceneDelegate.swift in Sources */,
 				13C882F42482CCFA00B51067 /* DetailViewController.swift in Sources */,
