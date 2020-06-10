@@ -8,41 +8,33 @@
 
 /* Begin PBXBuildFile section */
 		131FE02224801703003D27B6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131FE02124801703003D27B6 /* AppDelegate.swift */; };
-		131FE02424801703003D27B6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131FE02324801703003D27B6 /* SceneDelegate.swift */; };
-		131FE02624801703003D27B6 /* RootviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131FE02524801703003D27B6 /* RootviewController.swift */; };
+		131FE02624801703003D27B6 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131FE02524801703003D27B6 /* StartViewController.swift */; };
 		131FE02B24801703003D27B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 131FE02A24801703003D27B6 /* Assets.xcassets */; };
 		131FE02E24801703003D27B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 131FE02C24801703003D27B6 /* LaunchScreen.storyboard */; };
 		131FE03624801F10003D27B6 /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131FE03524801F10003D27B6 /* ToDoListViewController.swift */; };
 		131FE03A24802402003D27B6 /* MyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131FE03924802402003D27B6 /* MyTableViewCell.swift */; };
 		13259C4C248B854D00D00F71 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 13259C4B248B854D00D00F71 /* SnapKit */; };
 		1367C17224803718001C6465 /* GreetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1367C17124803718001C6465 /* GreetingView.swift */; };
-		1392B322248D4CE10081041A /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392B321248D4CE10081041A /* FileManager.swift */; };
 		1392B324248D4F9D0081041A /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392B323248D4F9D0081041A /* DateManager.swift */; };
 		13BC2E57248E618C0018E739 /* NoteCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BC2E56248E618C0018E739 /* NoteCodable.swift */; };
-		13BC2E59248E647F0018E739 /* CodableFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BC2E58248E647F0018E739 /* CodableFileManager.swift */; };
-		13BC2E5B248E72070018E739 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BC2E5A248E72070018E739 /* UserDefaultsManager.swift */; };
+		13BC2E59248E647F0018E739 /* NotesFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BC2E58248E647F0018E739 /* NotesFileManager.swift */; };
 		13C882F42482CCFA00B51067 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C882F32482CCFA00B51067 /* DetailViewController.swift */; };
-		13C882F82482CDF500B51067 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C882F72482CDF500B51067 /* Note.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		131FE01E24801703003D27B6 /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		131FE02124801703003D27B6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		131FE02324801703003D27B6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		131FE02524801703003D27B6 /* RootviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootviewController.swift; sourceTree = "<group>"; };
+		131FE02524801703003D27B6 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		131FE02A24801703003D27B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		131FE02D24801703003D27B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		131FE02F24801703003D27B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		131FE03524801F10003D27B6 /* ToDoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
 		131FE03924802402003D27B6 /* MyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableViewCell.swift; sourceTree = "<group>"; };
 		1367C17124803718001C6465 /* GreetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingView.swift; sourceTree = "<group>"; };
-		1392B321248D4CE10081041A /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		1392B323248D4F9D0081041A /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		13BC2E56248E618C0018E739 /* NoteCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCodable.swift; sourceTree = "<group>"; };
-		13BC2E58248E647F0018E739 /* CodableFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableFileManager.swift; sourceTree = "<group>"; };
-		13BC2E5A248E72070018E739 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		13BC2E58248E647F0018E739 /* NotesFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesFileManager.swift; sourceTree = "<group>"; };
 		13C882F32482CCFA00B51067 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		13C882F72482CDF500B51067 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,7 +69,6 @@
 			isa = PBXGroup;
 			children = (
 				131FE02124801703003D27B6 /* AppDelegate.swift */,
-				131FE02324801703003D27B6 /* SceneDelegate.swift */,
 				1392B320248D4CCB0081041A /* Helpers */,
 				13C882F62482CDCA00B51067 /* Models */,
 				13A823BC24802BBD00AD9E26 /* Custom view classes */,
@@ -92,7 +83,7 @@
 		131FE037248023CD003D27B6 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				131FE02524801703003D27B6 /* RootviewController.swift */,
+				131FE02524801703003D27B6 /* StartViewController.swift */,
 				131FE03524801F10003D27B6 /* ToDoListViewController.swift */,
 				13C882F32482CCFA00B51067 /* DetailViewController.swift */,
 			);
@@ -110,9 +101,7 @@
 		1392B320248D4CCB0081041A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				1392B321248D4CE10081041A /* FileManager.swift */,
-				13BC2E58248E647F0018E739 /* CodableFileManager.swift */,
-				13BC2E5A248E72070018E739 /* UserDefaultsManager.swift */,
+				13BC2E58248E647F0018E739 /* NotesFileManager.swift */,
 				1392B323248D4F9D0081041A /* DateManager.swift */,
 			);
 			path = Helpers;
@@ -138,7 +127,6 @@
 		13C882F62482CDCA00B51067 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				13C882F72482CDF500B51067 /* Note.swift */,
 				13BC2E56248E618C0018E739 /* NoteCodable.swift */,
 			);
 			path = Models;
@@ -223,15 +211,11 @@
 				131FE03624801F10003D27B6 /* ToDoListViewController.swift in Sources */,
 				1392B324248D4F9D0081041A /* DateManager.swift in Sources */,
 				1367C17224803718001C6465 /* GreetingView.swift in Sources */,
-				13BC2E5B248E72070018E739 /* UserDefaultsManager.swift in Sources */,
-				131FE02624801703003D27B6 /* RootviewController.swift in Sources */,
+				131FE02624801703003D27B6 /* StartViewController.swift in Sources */,
 				13BC2E57248E618C0018E739 /* NoteCodable.swift in Sources */,
-				13C882F82482CDF500B51067 /* Note.swift in Sources */,
 				131FE02224801703003D27B6 /* AppDelegate.swift in Sources */,
 				131FE03A24802402003D27B6 /* MyTableViewCell.swift in Sources */,
-				13BC2E59248E647F0018E739 /* CodableFileManager.swift in Sources */,
-				1392B322248D4CE10081041A /* FileManager.swift in Sources */,
-				131FE02424801703003D27B6 /* SceneDelegate.swift in Sources */,
+				13BC2E59248E647F0018E739 /* NotesFileManager.swift in Sources */,
 				13C882F42482CCFA00B51067 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

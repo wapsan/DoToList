@@ -3,8 +3,12 @@ import SnapKit
 
 class MyTableViewCell: UITableViewCell {
     
+    //MARK: - Properties
+    static let reuseID = "MyTableViewCell"
+    var nextButtonAction: (()-> Void)?
+    
     //MARK: - GUI Properties
-    lazy var customTittleLabel: UILabel = {
+    lazy var tittleLabel: UILabel = {
         let label = UILabel()
         label.text = "Tittle label"
         label.font = .boldSystemFont(ofSize: 20)
@@ -15,7 +19,7 @@ class MyTableViewCell: UITableViewCell {
         return label
     }()
     
-    lazy var customDetailLabel: UILabel = {
+    lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "Detail label text"
         label.font = .systemFont(ofSize: 17)
@@ -30,12 +34,11 @@ class MyTableViewCell: UITableViewCell {
         return label
     }()
     
-    lazy var nextButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "arrow"), for: .normal)
-        button.addTarget(self, action: #selector(self.nextButtonTouched), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    private let arrowIcon: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(systemName: "arrowtriangle.right")
+        image.contentMode = .scaleAspectFill
+        return image
     }()
     
     private lazy var containerView: UIView = {
@@ -48,10 +51,6 @@ class MyTableViewCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    //MARK: - Properties
-    static let reuseID = "MyTableViewCell"
-    var nextButtonAction: (()-> Void)?
     
     //MARK: - Initilization
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -71,11 +70,11 @@ class MyTableViewCell: UITableViewCell {
     
     //MARK: - Private methods
     private func setUpContainerView() {
-        self.addSubview(self.containerView)
-        self.containerView.addSubview(self.customTittleLabel)
-        self.containerView.addSubview(self.customDetailLabel)
+        self.contentView.addSubview(self.containerView)
+        self.containerView.addSubview(self.tittleLabel)
+        self.containerView.addSubview(self.descriptionLabel)
         self.containerView.addSubview(self.dateLabel)
-        self.containerView.addSubview(self.nextButton)
+        self.containerView.addSubview(self.arrowIcon)
         self.containerView.snp.makeConstraints { (make) in
             make.top.left.right.bottom.equalToSuperview().inset(8)
         }
@@ -91,39 +90,31 @@ class MyTableViewCell: UITableViewCell {
     private func setUpCell() {
         self.selectionStyle = .none
     }
-
+    
     //MARK: - Constraints
     private func setUpConstraints() {
-        self.customTittleLabel.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(16)
-            make.width.equalToSuperview().multipliedBy(0.6)
-            make.centerY.equalTo(self.nextButton.snp.centerY)
+        self.tittleLabel.snp.makeConstraints { (make) in
+            make.left.top.equalToSuperview().inset(16)
         }
         
-        self.customDetailLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.customTittleLabel.snp.bottom).offset(16)
-            make.left.equalToSuperview().inset(16)
-            make.bottom.equalToSuperview().inset(8)
-            make.width.equalTo(self.customTittleLabel.snp.width)
+        self.arrowIcon.snp.makeConstraints { (make) in
+           make.top.greaterThanOrEqualToSuperview().inset(5)
+            make.left.greaterThanOrEqualTo(self.tittleLabel.snp.right).offset(10)
+            make.right.equalToSuperview().inset(16)
+            make.centerY.equalTo(self.tittleLabel.snp.centerY)
+            make.size.equalTo(self.arrowIcon)
+        }
+        
+        self.descriptionLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.tittleLabel.snp.bottom).offset(10)
+            make.left.bottom.equalToSuperview().inset(16)
         }
         
         self.dateLabel.snp.makeConstraints { (make) in
-            make.left.greaterThanOrEqualTo(self.customDetailLabel.snp.right).offset(8)
+            make.top.greaterThanOrEqualTo(self.descriptionLabel.snp.top)
+            make.left.greaterThanOrEqualTo(self.descriptionLabel.snp.right).offset(10)
             make.right.equalToSuperview().inset(16)
-            make.centerY.equalTo(self.customDetailLabel.snp.centerY)
-        }
-        
-        self.nextButton.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().inset(8)
-            make.right.equalToSuperview().inset(8)
-            make.centerY.equalTo(self.customTittleLabel)
-            make.height.width.equalTo(50)
+            make.bottom.equalToSuperview().inset(16)
         }
     }
-    
-    //MARK: - Actions
-    @objc func nextButtonTouched() {
-        self.nextButtonAction?()
-    }
-    
 }

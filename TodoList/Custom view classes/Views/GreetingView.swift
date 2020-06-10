@@ -1,11 +1,3 @@
-//
-//  GreetingView.swift
-//  TodoList
-//
-//  Created by Вячеслав on 28.05.2020.
-//  Copyright © 2020 Вячеслав. All rights reserved.
-//
-
 import UIKit
 
 class GreetingView: UIView {
@@ -35,8 +27,6 @@ class GreetingView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.initView()
-        
-           
     }
     
     //MARK: - Initialization
@@ -47,12 +37,11 @@ class GreetingView: UIView {
     func initView() {
         self.addSubview(self.greetingLabel)
         self.addSubview(self.iconImageView)
-        self.constraint()
+        self.setUpConstraints()
     }
 
-    
     //MARK: - Constraints
-    private func constraint() {
+    private func setUpConstraints() {
         NSLayoutConstraint.activate([
             self.greetingLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 16),
             self.greetingLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16),
@@ -67,5 +56,4 @@ class GreetingView: UIView {
             self.iconImageView.widthAnchor.constraint(equalTo: self.iconImageView.heightAnchor, multiplier: 1)
         ])
     }
-    
 }

@@ -1,6 +1,5 @@
 import UIKit
 
-
 class DetailViewController: UIViewController {
     
     //MARK: - GUI roperties
@@ -135,14 +134,10 @@ class DetailViewController: UIViewController {
         guard let noteTittle = self.noteTittleTextField.text else { return }
         guard let noteDescription = self.noteDescriptionTextField.text else { return }
         let date = DateManager.shared.currnetDate
-        let note = NoteCodable(tittle: noteTittle, description: noteDescription, date: date)
-        //  let note = Note(tittle: noteTittle, description: noteDescription, date: date)
-        //  NotesFileManager.shared.save(note: note)
-        // CodableFileManager.shared.addNote(note: note)
-        UserDefaultsManager.shared.add(note: note)
+        let note = Note(tittle: noteTittle, description: noteDescription, date: date)
+        NotesFileManager.shared.addNote(note)
         self.resetTextFields()
     }
-    
 }
 
 //MARK: - UITextFieldDelegate

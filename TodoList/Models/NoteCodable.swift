@@ -1,8 +1,9 @@
 
 import Foundation
 
-class NoteCodable: NSObject, Codable {
+class Note: NSObject, Codable {
  
+    //MARK: - Coding keys
     enum CodingKeys: String ,CodingKey {
         case noteTittle
         case noteDescription
@@ -20,7 +21,5 @@ class NoteCodable: NSObject, Codable {
         self.noteDescription = description
         self.date = date
     }
-    
-    
 }
 
