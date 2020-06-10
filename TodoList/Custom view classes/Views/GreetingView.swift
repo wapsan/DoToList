@@ -34,6 +34,7 @@ class GreetingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Public methods
     func initView() {
         self.addSubview(self.greetingLabel)
         self.addSubview(self.iconImageView)

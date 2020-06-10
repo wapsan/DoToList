@@ -3,8 +3,8 @@ import UIKit
 class ToDoListViewController: UIViewController {
 
     //MARK: - Private properties
-    private var noteList: [Note] = []
-    
+    private var noteList: [Note] = NotesFileManager.shared.loadNoteList()
+
     //MARK: - GUI Properties
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -19,20 +19,24 @@ class ToDoListViewController: UIViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "To do list"
-        self.view.backgroundColor = .red
-        self.view.addSubview(self.tableView)
+        self.setUpMainView()
         self.setUpConstrains()
         self.setUpNavigationBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.noteList = NotesFileManager.shared.getNoteList()
+        self.noteList = NotesFileManager.shared.loadNoteList()
         self.tableView.reloadData()
     }
     
     //MARK: - Private methods
+    private func setUpMainView() {
+        self.title = "To do list"
+        self.tableView.backgroundColor = .yellow
+        self.view.addSubview(self.tableView)
+    }
+    
     private func pushDetailVC(with note: Note) {
         let detailVC = DetailViewController()
         detailVC.setNote(to: note)
@@ -45,12 +49,8 @@ class ToDoListViewController: UIViewController {
                                             target: self,
                                             action: #selector(self.addNote))
         self.navigationItem.rightBarButtonItem = addNoteButton
-//        let editButton = UIBarButtonItem(barButtonSystemItem: .edit,
-//                                            target: self,
-//                                            action: #selector(self.editNote))
         self.navigationItem.rightBarButtonItems = [addNoteButton, self.editButtonItem]
-       self.editButtonItem.action = #selector(self.editNote)
-        
+        self.editButtonItem.action = #selector(self.editNote)
     }
     
     //MARK: - Constraints
@@ -68,14 +68,13 @@ class ToDoListViewController: UIViewController {
     
     @objc private func editNote() {
         self.tableView.setEditing(self.tableView.isEditing ? false : true, animated: true)
-        self.tableView.isEditing ? print("Start editing") : print("End editing")
-        self.noteList.forEach({print($0.noteTittle)})
         if !self.tableView.isEditing {
-            self.noteList.forEach({print($0.noteTittle)})
-            NotesFileManager.shared.updateNotelist(for: self.noteList)
+            self.editButtonItem.title = "Edit"
+            NotesFileManager.shared.updateNotelist(to: self.noteList)
+        } else {
+            self.editButtonItem.title = "Done"
         }
     }
-    
 }
 
 //MARK: - UITableViewDataSource, UITableViewDelegate
@@ -86,13 +85,17 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: MyTableViewCell.reuseID,
-                                                      for: indexPath) as! MyTableViewCell
-        let note = self.noteList[indexPath.row]
-        cell.tittleLabel.text = note.noteTittle
-        cell.descriptionLabel.text = note.noteDescription
-        cell.dateLabel.text = note.date
-        return cell
+        if let cell = tableView.dequeueReusableCell(withIdentifier: MyTableViewCell.reuseID,
+                                                    for: indexPath) as? MyTableViewCell {
+            let note = self.noteList[indexPath.row]
+            cell.titleLabel.text = note.noteTitle
+            cell.descriptionLabel.text = note.noteDescription
+            cell.dateLabel.text = note.date
+            cell.backgroundColor = .clear
+            return cell
+        } else {
+            return UITableViewCell()
+        }
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -101,6 +104,12 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailVC = DetailViewController()
+        detailVC.setNote(to: self.noteList[indexPath.row])
+        self.navigationController?.pushViewController(detailVC, animated: true)
     }
   
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -113,7 +122,7 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
                 NotesFileManager.shared.removeNote(at: deletedNoteIndex)
             }
         } else if editingStyle == .insert {
-            print("here")
+            NotesFileManager.shared.updateNotelist()
         }
     }
     
@@ -122,8 +131,5 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
                    to destinationIndexPath: IndexPath) {
         self.noteList.swapAt(sourceIndexPath.row, destinationIndexPath.row)
     }
-    
-    
-    
 }
  

@@ -2,18 +2,18 @@ import Foundation
 
 class NotesFileManager {
     
-    //MARK: - Static properties
+    //MARK: - Static propertie
     static let shared = NotesFileManager()
     
     //MARK: - Private properties
     private var directoryURL: URL
     private var filePath: URL?
-    private var noteList: [Note] = []
+    var noteList: [Note]  = []
     
     //MARK: - Initialization
     init() {
-        self.directoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-       // self.fethcNoteList()
+        self.directoryURL = FileManager.default.urls(for: .documentDirectory,
+                                                     in: .userDomainMask)[0]
     }
     
     //MARK: - Private methods
@@ -26,24 +26,24 @@ class NotesFileManager {
     }
     
     //MARK: - Publick methods
-    func addNote(_ note: Note) {
-        self.noteList.append(note)
-        self.updateNotelist(for: self.noteList)
-    }
-    
-    func getNoteList() -> [Note] {
+    func loadNoteList() -> [Note] {
         self.fethcNoteList()
         return self.noteList
     }
     
-    func removeNote(at index: Int) {
-        self.noteList.remove(at: index)
-        self.updateNotelist(for: self.noteList)
+    func addNote(_ note: Note) {
+        self.noteList.append(note)
+        self.updateNotelist()
     }
     
-    func updateNotelist(for noteList: [Note]) {
+    func removeNote(at index: Int) {
+        self.noteList.remove(at: index)
+        self.updateNotelist()
+    }
+    
+    func updateNotelist(to notelist: [Note]) {
         if let filePath = directoryURL.appendingPathComponent("user") as URL?,
-            let encodeData = try? JSONEncoder().encode(noteList) {
+            let encodeData = try? JSONEncoder().encode(notelist) {
             do {
                 try encodeData.write(to: filePath)
             } catch {
@@ -52,4 +52,14 @@ class NotesFileManager {
         }
     }
     
+    func updateNotelist() {
+        if let filePath = directoryURL.appendingPathComponent("user") as URL?,
+            let encodeData = try? JSONEncoder().encode(self.noteList) {
+            do {
+                try encodeData.write(to: filePath)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
 }

@@ -8,7 +8,7 @@ class MyTableViewCell: UITableViewCell {
     var nextButtonAction: (()-> Void)?
     
     //MARK: - GUI Properties
-    lazy var tittleLabel: UILabel = {
+    lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Tittle label"
         label.font = .boldSystemFont(ofSize: 20)
@@ -34,7 +34,7 @@ class MyTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let arrowIcon: UIImageView = {
+    private lazy var arrowIcon: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "arrowtriangle.right")
         image.contentMode = .scaleAspectFill
@@ -71,13 +71,10 @@ class MyTableViewCell: UITableViewCell {
     //MARK: - Private methods
     private func setUpContainerView() {
         self.contentView.addSubview(self.containerView)
-        self.containerView.addSubview(self.tittleLabel)
+        self.containerView.addSubview(self.titleLabel)
         self.containerView.addSubview(self.descriptionLabel)
         self.containerView.addSubview(self.dateLabel)
         self.containerView.addSubview(self.arrowIcon)
-        self.containerView.snp.makeConstraints { (make) in
-            make.top.left.right.bottom.equalToSuperview().inset(8)
-        }
     }
     
     private func initCell() {
@@ -93,20 +90,24 @@ class MyTableViewCell: UITableViewCell {
     
     //MARK: - Constraints
     private func setUpConstraints() {
-        self.tittleLabel.snp.makeConstraints { (make) in
+        self.containerView.snp.makeConstraints { (make) in
+            make.top.left.right.bottom.equalToSuperview().inset(8)
+        }
+        
+        self.titleLabel.snp.makeConstraints { (make) in
             make.left.top.equalToSuperview().inset(16)
         }
         
         self.arrowIcon.snp.makeConstraints { (make) in
            make.top.greaterThanOrEqualToSuperview().inset(5)
-            make.left.greaterThanOrEqualTo(self.tittleLabel.snp.right).offset(10)
+            make.left.greaterThanOrEqualTo(self.titleLabel.snp.right).offset(10)
             make.right.equalToSuperview().inset(16)
-            make.centerY.equalTo(self.tittleLabel.snp.centerY)
+            make.centerY.equalTo(self.titleLabel.snp.centerY)
             make.size.equalTo(self.arrowIcon)
         }
         
         self.descriptionLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.tittleLabel.snp.bottom).offset(10)
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(10)
             make.left.bottom.equalToSuperview().inset(16)
         }
         

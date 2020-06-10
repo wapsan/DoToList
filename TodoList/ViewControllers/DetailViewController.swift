@@ -2,6 +2,9 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
+    //MARK: - Private properties
+    private var note: Note?
+         
     //MARK: - GUI roperties
     lazy var noteTittleLabel: UILabel = {
         let label = UILabel()
@@ -26,13 +29,7 @@ class DetailViewController: UIViewController {
         textField.borderStyle = .roundedRect
         textField.delegate = self
         textField.tag = 1
-        textField.borderStyle = .none
-        textField.layer.borderColor = UIColor.black.cgColor
-        textField.layer.borderWidth = 1
-        textField.layer.cornerRadius = 20
         textField.font = .systemFont(ofSize: 17)
-        textField.layer.borderColor = UIColor.black.cgColor
-        textField.layer.borderWidth = 1
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -42,15 +39,16 @@ class DetailViewController: UIViewController {
         textField.borderStyle = .roundedRect
         textField.delegate = self
         textField.tag = 2
-        textField.borderStyle = .none
-        textField.layer.borderColor = UIColor.black.cgColor
-        textField.layer.borderWidth = 1
-        textField.layer.cornerRadius = 20
         textField.font = .systemFont(ofSize: 17)
-        textField.layer.borderColor = UIColor.black.cgColor
-        textField.layer.borderWidth = 1
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
+    }()
+    
+    lazy var datePicker: UIDatePicker = {
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .date
+        datePicker.setDate(Date(), animated: true)
+        return datePicker
     }()
     
     lazy var createNoteButton: UIButton = {
@@ -61,27 +59,26 @@ class DetailViewController: UIViewController {
         button.layer.borderColor = UIColor.black.cgColor
         button.layer.borderWidth = 1
         button.layer.cornerRadius = 20
-        button.addTarget(self, action: #selector(self.createNotePressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(self.createNoteButtonPressed), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
-    //MARK: - Private properties
-    private var note: Note?
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setGuiElements()
-        self.view.backgroundColor = .yellow
+        self.setMainButton()
     }
     
     //MARK: - Private methods
     private func setGuiElements() {
+        self.view.backgroundColor = .yellow
         self.view.addSubview(self.noteTittleLabel)
         self.view.addSubview(self.noteDescriptionLabel)
         self.view.addSubview(self.noteTittleTextField)
         self.view.addSubview(self.noteDescriptionTextField)
+        self.view.addSubview(self.datePicker)
         self.view.addSubview(self.createNoteButton)
         self.setConstrasints()
     }
@@ -90,6 +87,7 @@ class DetailViewController: UIViewController {
         self.noteTittleTextField.text = nil
         self.noteDescriptionTextField.text = nil
     }
+    
     
     //MARK: - Constraints
     private func setConstrasints() {
@@ -114,6 +112,12 @@ class DetailViewController: UIViewController {
         self.noteDescriptionTextField.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview().inset(16)
             make.height.equalTo(50)
+            make.bottom.equalTo(self.datePicker.snp.top).offset(-16)
+        }
+        
+        self.datePicker.snp.makeConstraints { (make) in
+            make.left.right.equalToSuperview().inset(16)
+            make.height.equalTo(150)
             make.bottom.equalTo(self.createNoteButton.snp.top).offset(-16)
         }
         
@@ -129,13 +133,32 @@ class DetailViewController: UIViewController {
         self.note = note
     }
     
+    //MARK: - Private methods
+    func setMainButton() {
+        if let note = self.note {
+           self.noteDescriptionTextField.text = note.noteDescription
+            self.noteTittleTextField.text = note.noteTitle
+            self.createNoteButton.setTitle("Change", for: .normal)
+        } else {
+            self.createNoteButton.setTitle("Add note", for: .normal)
+        }
+    }
+    
     //MARK: - Action
-    @objc private func createNotePressed() {
-        guard let noteTittle = self.noteTittleTextField.text else { return }
+    @objc private func createNoteButtonPressed() {
+        guard let noteTittle = self.noteTittleTextField.text,
+            noteTittle != "" else { return }
         guard let noteDescription = self.noteDescriptionTextField.text else { return }
-        let date = DateManager.shared.currnetDate
-        let note = Note(tittle: noteTittle, description: noteDescription, date: date)
-        NotesFileManager.shared.addNote(note)
+        let date = DateManager.shared.getFormateDate(from: self.datePicker.date)
+        let note = Note(title: noteTittle, description: noteDescription, date: date)
+        if let note = self.note {
+            note.noteTitle = noteTittle
+            note.noteDescription = noteDescription
+            note.date = date
+            NotesFileManager.shared.updateNotelist()
+        } else {
+            NotesFileManager.shared.addNote(note)
+        }
         self.resetTextFields()
     }
 }
@@ -148,7 +171,7 @@ extension DetailViewController: UITextFieldDelegate {
         guard let textFromTextField = textField.text else { return false}
         if textField.tag == 1 {
             self.noteTittleLabel.text = textFromTextField
-            self.note?.noteTittle = textFromTextField
+            self.note?.noteTitle = textFromTextField
             textField.text = nil
         } else {
             self.noteDescriptionLabel.text = textFromTextField
