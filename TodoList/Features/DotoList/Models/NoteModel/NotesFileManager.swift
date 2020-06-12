@@ -8,7 +8,15 @@ class NotesFileManager {
     //MARK: - Private properties
     private var directoryURL: URL
     private var filePath: URL?
-    var noteList: [Note]  = []
+    private var _noteList: [Note] = []
+    
+    //MARK: - Properties
+    var noteList: [Note]  {
+        get {
+            self.fethcNoteList()
+            return self._noteList
+        }
+    }
     
     //MARK: - Initialization
     init() {
@@ -22,22 +30,22 @@ class NotesFileManager {
         guard let filePath = localPath?.path,
             let data = FileManager.default.contents(atPath: filePath),
             let noteList = try? JSONDecoder().decode([Note].self, from: data) else { return }
-        self.noteList = noteList
+        self._noteList = noteList
     }
     
     //MARK: - Publick methods
-    func loadNoteList() -> [Note] {
-        self.fethcNoteList()
-        return self.noteList
-    }
+//    func loadNoteList() -> [Note] {
+//        self.fethcNoteList()
+//        return self.noteList
+//    }
     
     func addNote(_ note: Note) {
-        self.noteList.append(note)
+        self._noteList.append(note)
         self.updateNotelist()
     }
     
     func removeNote(at index: Int) {
-        self.noteList.remove(at: index)
+        self._noteList.remove(at: index)
         self.updateNotelist()
     }
     
@@ -54,7 +62,7 @@ class NotesFileManager {
     
     func updateNotelist() {
         if let filePath = directoryURL.appendingPathComponent("user") as URL?,
-            let encodeData = try? JSONEncoder().encode(self.noteList) {
+            let encodeData = try? JSONEncoder().encode(self._noteList) {
             do {
                 try encodeData.write(to: filePath)
             } catch {

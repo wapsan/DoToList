@@ -2,12 +2,9 @@ import UIKit
 import SnapKit
 
 class GreetingView: UIView {
-
+    
     //MARK: - Private properties
-    private var edgeInsets = UIEdgeInsets(top: 16,
-                                          left: 16,
-                                          bottom: 16,
-                                          right: 16)
+    private var edgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     
     //MARK: - GUI Properties
     lazy var greetingLabel: UILabel = {
@@ -49,7 +46,7 @@ class GreetingView: UIView {
         self.addSubview(self.iconImageView)
         self.setUpConstraints()
     }
-
+    
     //MARK: - Constraints
     private func setUpConstraints() {
         self.greetingLabel.snp.makeConstraints { (make) in

@@ -1,24 +1,18 @@
 import UIKit
+import SnapKit
 
-class ToDoListViewController: UIViewController {
+class ToDoListViewController: MainStyleViewController {
 
     //MARK: - Private properties
-    private var noteList: [Note] = NotesFileManager.shared.loadNoteList()
+    private var noteList: [Note] = NotesFileManager.shared.noteList
 
     //MARK: - GUI Properties
-    lazy var backgroumdImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
-    
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(MyTableViewCell.self, forCellReuseIdentifier: MyTableViewCell.reuseID)
         tableView.separatorStyle = .none
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
 
@@ -32,7 +26,7 @@ class ToDoListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.noteList = NotesFileManager.shared.loadNoteList()
+        self.noteList = NotesFileManager.shared.noteList
         self.tableView.reloadData()
     }
     
@@ -40,8 +34,6 @@ class ToDoListViewController: UIViewController {
     private func setUpMainView() {
         self.title = "To do list"
         self.tableView.backgroundColor = .clear
-        self.backgroumdImageView.image = UIImage(named: "backgroundImage")
-        self.view.addSubview(self.backgroumdImageView)
         self.view.addSubview(self.tableView)
     }
     
@@ -62,19 +54,12 @@ class ToDoListViewController: UIViewController {
         let addNoteButton = UIBarButtonItem(barButtonSystemItem: .add,
                                             target: self,
                                             action: #selector(self.addNoteButtonPressed))
-        self.navigationItem.rightBarButtonItem = addNoteButton
         self.navigationItem.rightBarButtonItems = [addNoteButton, self.editButtonItem]
         self.editButtonItem.action = #selector(self.editNoteListButtonPressed)
     }
     
     //MARK: - Constraints
     private func setUpConstrains() {
-        let safeArea = self.view.safeAreaLayoutGuide
-        self.backgroumdImageView.snp.makeConstraints { (make) in
-            make.top.equalTo(safeArea.snp.top)
-            make.left.right.bottom.equalToSuperview()
-        }
-        
         self.tableView.snp.makeConstraints { (make) in
             make.top.left.right.bottom.equalToSuperview()
         }

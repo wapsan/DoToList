@@ -1,17 +1,13 @@
 import UIKit
 
-class DetailViewController: UIViewController {
+class DetailViewController: MainStyleViewController {
     
     //MARK: - Private properties
     private var note: Note?
-         
-    //MARK: - GUI roperties
-    lazy var backgroumdImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
+    private lazy var edgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+    private lazy var itemsHeight: CGFloat = 50
     
+    //MARK: - GUI roperties
     lazy var noteTittleLabel: UILabel = {
         let label = UILabel()
         label.text = "Tittle"
@@ -82,8 +78,6 @@ class DetailViewController: UIViewController {
     //MARK: - Private methods
     private func setGuiElements() {
         self.view.backgroundColor = .yellow
-        self.backgroumdImageView.image = UIImage(named: "backgroundImage")
-        self.view.addSubview(self.backgroumdImageView)
         self.view.addSubview(self.noteTittleLabel)
         self.view.addSubview(self.noteDescriptionLabel)
         self.view.addSubview(self.noteTittleTextField)
@@ -101,45 +95,39 @@ class DetailViewController: UIViewController {
     
     //MARK: - Constraints
     private func setConstrasints() {
-        let safeArea = self.view.safeAreaLayoutGuide
-        self.backgroumdImageView.snp.makeConstraints { (make) in
-            make.top.equalTo(safeArea.snp.top)
-            make.left.right.bottom.equalToSuperview()
-        }
-        
         self.noteTittleLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(safeArea.snp.top).inset(8)
-            make.left.right.equalToSuperview().inset(16)
-            make.bottom.equalTo(self.noteTittleTextField.snp.top).offset(-8)
+            make.top.equalTo(safeArea.snp.top).inset(self.edgeInsets)
+            make.left.right.equalToSuperview().inset(self.edgeInsets)
+            make.bottom.equalTo(self.noteTittleTextField.snp.top).offset(-self.edgeInsets.bottom / 2)
         }
         
         self.noteTittleTextField.snp.makeConstraints { (make) in
-            make.left.right.equalToSuperview().inset(16)
-            make.height.equalTo(50)
-            make.bottom.equalTo(self.noteDescriptionLabel.snp.top).offset(-8)
+            make.left.right.equalToSuperview().inset(self.edgeInsets)
+            make.height.equalTo(self.itemsHeight)
+            make.bottom.equalTo(self.noteDescriptionLabel.snp.top).offset(-self.edgeInsets.bottom / 2)
         }
         
         self.noteDescriptionLabel.snp.makeConstraints { (make) in
-            make.left.right.equalToSuperview().inset(16)
-            make.bottom.equalTo(self.noteDescriptionTextField.snp.top).offset(-8)
+            make.left.right.equalToSuperview().inset(self.edgeInsets)
+            make.bottom.equalTo(self.noteDescriptionTextField.snp.top).offset(-self.edgeInsets.bottom / 2)
         }
         
         self.noteDescriptionTextField.snp.makeConstraints { (make) in
-            make.left.right.equalToSuperview().inset(16)
-            make.height.equalTo(50)
-            make.bottom.equalTo(self.datePicker.snp.top).offset(-16)
+            make.left.right.equalToSuperview().inset(self.edgeInsets)
+            make.height.equalTo(self.itemsHeight)
+            make.bottom.equalTo(self.datePicker.snp.top).offset(-self.edgeInsets.bottom)
         }
         
         self.datePicker.snp.makeConstraints { (make) in
-            make.left.right.equalToSuperview().inset(16)
-            make.height.equalTo(150)
-            make.bottom.equalTo(self.createNoteButton.snp.top).offset(-16)
+            make.left.right.equalToSuperview().inset(self.edgeInsets)
+            make.height.equalTo(self.itemsHeight * 3)
+            make.bottom.equalTo(self.createNoteButton.snp.top).offset(-self.edgeInsets.bottom)
         }
         
         self.createNoteButton.snp.makeConstraints { (make) in
             make.width.equalToSuperview().multipliedBy(0.5)
             make.centerX.equalToSuperview()
-            make.height.equalTo(50)
+            make.height.equalTo(self.itemsHeight)
         }
     }
     

@@ -5,7 +5,10 @@ class MyTableViewCell: UITableViewCell {
     
     //MARK: - Properties
     static let reuseID = "MyTableViewCell"
-    var nextButtonAction: (()-> Void)?
+    
+    //MARK: - Private properties
+    private lazy var conteinerViewInset: CGFloat = 8
+    private lazy var edgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     
     //MARK: - GUI Properties
     lazy var titleLabel: UILabel = {
@@ -15,7 +18,6 @@ class MyTableViewCell: UITableViewCell {
         label.numberOfLines = 1
         label.minimumScaleFactor = 0.5
         label.adjustsFontSizeToFitWidth = true
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -24,13 +26,11 @@ class MyTableViewCell: UITableViewCell {
         label.text = "Detail label text"
         label.font = .systemFont(ofSize: 17)
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     lazy var dateLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -83,7 +83,6 @@ class MyTableViewCell: UITableViewCell {
         self.setUpCell()
         self.setUpContainerView()
         self.setUpConstraints()
-        self.containerView.isUserInteractionEnabled = false
     }
     
     private func setUpCell() {
@@ -93,31 +92,32 @@ class MyTableViewCell: UITableViewCell {
     //MARK: - Constraints
     private func setUpConstraints() {
         self.containerView.snp.makeConstraints { (make) in
-            make.top.left.right.bottom.equalToSuperview().inset(8)
+            make.top.left.right.bottom.equalToSuperview().inset(self.conteinerViewInset)
         }
         
         self.titleLabel.snp.makeConstraints { (make) in
-            make.left.top.equalToSuperview().inset(16)
+            make.left.top.equalToSuperview().inset(self.edgeInsets)
         }
         
         self.arrowIcon.snp.makeConstraints { (make) in
-           make.top.greaterThanOrEqualToSuperview().inset(5)
-            make.left.greaterThanOrEqualTo(self.titleLabel.snp.right).offset(10)
-            make.right.equalToSuperview().inset(16)
+            make.top.greaterThanOrEqualToSuperview().inset(self.edgeInsets)
+            make.left.greaterThanOrEqualTo(self.titleLabel.snp.right).offset(self.edgeInsets.left)
+            make.right.equalToSuperview().inset(self.edgeInsets)
             make.centerY.equalTo(self.titleLabel.snp.centerY)
             make.size.equalTo(self.arrowIcon)
         }
         
+        descriptionLabel.snp.contentCompressionResistanceHorizontalPriority = 250
         self.descriptionLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.titleLabel.snp.bottom).offset(10)
-            make.left.bottom.equalToSuperview().inset(16)
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(self.edgeInsets.top)
+            make.left.bottom.equalToSuperview().inset(self.edgeInsets)
         }
         
         self.dateLabel.snp.makeConstraints { (make) in
             make.top.greaterThanOrEqualTo(self.descriptionLabel.snp.top)
             make.left.greaterThanOrEqualTo(self.descriptionLabel.snp.right).offset(10)
-            make.right.equalToSuperview().inset(16)
-            make.bottom.equalToSuperview().inset(16)
+            make.right.equalToSuperview().inset(self.edgeInsets)
+            make.bottom.equalToSuperview().inset(self.edgeInsets)
         }
     }
 }

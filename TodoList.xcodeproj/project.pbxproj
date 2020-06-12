@@ -15,6 +15,7 @@
 		131FE03A24802402003D27B6 /* MyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131FE03924802402003D27B6 /* MyTableViewCell.swift */; };
 		13259C4C248B854D00D00F71 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 13259C4B248B854D00D00F71 /* SnapKit */; };
 		132AB26324938A1C00B75219 /* UIColor+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132AB26224938A1C00B75219 /* UIColor+Ex.swift */; };
+		135485C92493AFA000FFECEF /* MainStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135485C82493AFA000FFECEF /* MainStyleViewController.swift */; };
 		1367C17224803718001C6465 /* GreetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1367C17124803718001C6465 /* GreetingView.swift */; };
 		1392B324248D4F9D0081041A /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392B323248D4F9D0081041A /* DateManager.swift */; };
 		13BC2E57248E618C0018E739 /* NoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BC2E56248E618C0018E739 /* NoteModel.swift */; };
@@ -32,6 +33,7 @@
 		131FE03524801F10003D27B6 /* ToDoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
 		131FE03924802402003D27B6 /* MyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableViewCell.swift; sourceTree = "<group>"; };
 		132AB26224938A1C00B75219 /* UIColor+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ex.swift"; sourceTree = "<group>"; };
+		135485C82493AFA000FFECEF /* MainStyleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStyleViewController.swift; sourceTree = "<group>"; };
 		1367C17124803718001C6465 /* GreetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingView.swift; sourceTree = "<group>"; };
 		1392B323248D4F9D0081041A /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		13BC2E56248E618C0018E739 /* NoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteModel.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				131FE02124801703003D27B6 /* AppDelegate.swift */,
+				135485C62493AF7E00FFECEF /* Common */,
 				137CAB762493750C008BCB5B /* Features */,
 				1392B320248D4CCB0081041A /* Utilities */,
 				137CAB82249376A7008BCB5B /* Resources */,
@@ -87,6 +90,22 @@
 				132AB26224938A1C00B75219 /* UIColor+Ex.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		135485C62493AF7E00FFECEF /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				135485C72493AF8800FFECEF /* ViewControllers */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		135485C72493AF8800FFECEF /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				135485C82493AFA000FFECEF /* MainStyleViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		137CAB762493750C008BCB5B /* Features */ = {
@@ -292,6 +311,7 @@
 				131FE02224801703003D27B6 /* AppDelegate.swift in Sources */,
 				131FE03A24802402003D27B6 /* MyTableViewCell.swift in Sources */,
 				13BC2E59248E647F0018E739 /* NotesFileManager.swift in Sources */,
+				135485C92493AFA000FFECEF /* MainStyleViewController.swift in Sources */,
 				13C882F42482CCFA00B51067 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
