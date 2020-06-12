@@ -3,7 +3,7 @@ import Foundation
 class DateManager {
     
     //MARK: - Private properties
-    private var dateFormat = "MMM/d/yyyy"
+    private var dateFormat = "MMM d, HH:mm"
     private var dateFormater = DateFormatter()
     
     //MARK: - Properties

@@ -6,6 +6,12 @@ class ToDoListViewController: UIViewController {
     private var noteList: [Note] = NotesFileManager.shared.loadNoteList()
 
     //MARK: - GUI Properties
+    lazy var backgroumdImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
+    
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
@@ -33,40 +39,53 @@ class ToDoListViewController: UIViewController {
     //MARK: - Private methods
     private func setUpMainView() {
         self.title = "To do list"
-        self.tableView.backgroundColor = .yellow
+        self.tableView.backgroundColor = .clear
+        self.backgroumdImageView.image = UIImage(named: "backgroundImage")
+        self.view.addSubview(self.backgroumdImageView)
         self.view.addSubview(self.tableView)
     }
     
-    private func pushDetailVC(with note: Note) {
-        let detailVC = DetailViewController()
-        detailVC.setNote(to: note)
-        detailVC.navigationItem.title = note.date
-        self.navigationController?.pushViewController(detailVC, animated: true)
+    private func pushNewNoteVC() {
+        let newNotVC = DetailViewController()
+        newNotVC.title = "New note"
+        self.navigationController?.pushViewController(newNotVC, animated: true)
+    }
+    
+    private func pushEditNoteVC(with note: Note) {
+        let editNoteVC = DetailViewController()
+        editNoteVC.setNote(to: note)
+        editNoteVC.navigationItem.title = note.date
+        self.navigationController?.pushViewController(editNoteVC, animated: true)
     }
     
     private func setUpNavigationBar() {
         let addNoteButton = UIBarButtonItem(barButtonSystemItem: .add,
                                             target: self,
-                                            action: #selector(self.addNote))
+                                            action: #selector(self.addNoteButtonPressed))
         self.navigationItem.rightBarButtonItem = addNoteButton
         self.navigationItem.rightBarButtonItems = [addNoteButton, self.editButtonItem]
-        self.editButtonItem.action = #selector(self.editNote)
+        self.editButtonItem.action = #selector(self.editNoteListButtonPressed)
     }
     
     //MARK: - Constraints
     private func setUpConstrains() {
+        let safeArea = self.view.safeAreaLayoutGuide
+        self.backgroumdImageView.snp.makeConstraints { (make) in
+            make.top.equalTo(safeArea.snp.top)
+            make.left.right.bottom.equalToSuperview()
+        }
+        
         self.tableView.snp.makeConstraints { (make) in
             make.top.left.right.bottom.equalToSuperview()
         }
     }
    
     //MARK: - Actions
-    @objc private func addNote() {
-        let detailVC = DetailViewController()
-        self.navigationController?.pushViewController(detailVC, animated: true)
+    @objc private func addNoteButtonPressed() {
+        self.pushNewNoteVC()
     }
     
-    @objc private func editNote() {
+    @objc private func editNoteListButtonPressed() {
         self.tableView.setEditing(self.tableView.isEditing ? false : true, animated: true)
         if !self.tableView.isEditing {
             self.editButtonItem.title = "Edit"
@@ -98,18 +117,9 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailVC = DetailViewController()
-        detailVC.setNote(to: self.noteList[indexPath.row])
-        self.navigationController?.pushViewController(detailVC, animated: true)
+        let note = self.noteList[indexPath.row]
+        self.pushEditNoteVC(with: note)
     }
   
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -130,6 +140,14 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
                    moveRowAt sourceIndexPath: IndexPath,
                    to destinationIndexPath: IndexPath) {
         self.noteList.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
 }
  

@@ -43,11 +43,13 @@ class MyTableViewCell: UITableViewCell {
     
     private lazy var containerView: UIView = {
        let view = UIView()
-        view.backgroundColor = .darkGray
+        view.backgroundColor = .white
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOffset = .init(width: 0, height: 5)
         view.layer.shadowOpacity = 5
         view.layer.cornerRadius = 20
+        view.layer.borderColor = UIColor.black.cgColor
+        view.layer.borderWidth = 1
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

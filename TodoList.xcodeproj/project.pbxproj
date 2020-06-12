@@ -14,9 +14,10 @@
 		131FE03624801F10003D27B6 /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131FE03524801F10003D27B6 /* ToDoListViewController.swift */; };
 		131FE03A24802402003D27B6 /* MyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 131FE03924802402003D27B6 /* MyTableViewCell.swift */; };
 		13259C4C248B854D00D00F71 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 13259C4B248B854D00D00F71 /* SnapKit */; };
+		132AB26324938A1C00B75219 /* UIColor+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132AB26224938A1C00B75219 /* UIColor+Ex.swift */; };
 		1367C17224803718001C6465 /* GreetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1367C17124803718001C6465 /* GreetingView.swift */; };
 		1392B324248D4F9D0081041A /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392B323248D4F9D0081041A /* DateManager.swift */; };
-		13BC2E57248E618C0018E739 /* NoteCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BC2E56248E618C0018E739 /* NoteCodable.swift */; };
+		13BC2E57248E618C0018E739 /* NoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BC2E56248E618C0018E739 /* NoteModel.swift */; };
 		13BC2E59248E647F0018E739 /* NotesFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BC2E58248E647F0018E739 /* NotesFileManager.swift */; };
 		13C882F42482CCFA00B51067 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C882F32482CCFA00B51067 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
@@ -30,9 +31,10 @@
 		131FE02F24801703003D27B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		131FE03524801F10003D27B6 /* ToDoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
 		131FE03924802402003D27B6 /* MyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableViewCell.swift; sourceTree = "<group>"; };
+		132AB26224938A1C00B75219 /* UIColor+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ex.swift"; sourceTree = "<group>"; };
 		1367C17124803718001C6465 /* GreetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingView.swift; sourceTree = "<group>"; };
 		1392B323248D4F9D0081041A /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
-		13BC2E56248E618C0018E739 /* NoteCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCodable.swift; sourceTree = "<group>"; };
+		13BC2E56248E618C0018E739 /* NoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteModel.swift; sourceTree = "<group>"; };
 		13BC2E58248E647F0018E739 /* NotesFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesFileManager.swift; sourceTree = "<group>"; };
 		13C882F32482CCFA00B51067 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -69,54 +71,70 @@
 			isa = PBXGroup;
 			children = (
 				131FE02124801703003D27B6 /* AppDelegate.swift */,
-				1392B320248D4CCB0081041A /* Helpers */,
-				13C882F62482CDCA00B51067 /* Models */,
-				13A823BC24802BBD00AD9E26 /* Custom view classes */,
-				131FE037248023CD003D27B6 /* ViewControllers */,
-				131FE02A24801703003D27B6 /* Assets.xcassets */,
+				137CAB762493750C008BCB5B /* Features */,
+				1392B320248D4CCB0081041A /* Utilities */,
+				137CAB82249376A7008BCB5B /* Resources */,
+				137CAB83249376C8008BCB5B /* Configurations */,
+				132AB261249389F900B75219 /* Extensions */,
 				131FE02C24801703003D27B6 /* LaunchScreen.storyboard */,
-				131FE02F24801703003D27B6 /* Info.plist */,
 			);
 			path = TodoList;
 			sourceTree = "<group>";
 		};
-		131FE037248023CD003D27B6 /* ViewControllers */ = {
+		132AB261249389F900B75219 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				132AB26224938A1C00B75219 /* UIColor+Ex.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		137CAB762493750C008BCB5B /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				137CAB7724937515008BCB5B /* Main */,
+				137CAB782493752D008BCB5B /* DotoList */,
+				137CAB792493753C008BCB5B /* CreateNewNote */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		137CAB7724937515008BCB5B /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				137CAB7B24937579008BCB5B /* Views */,
+				137CAB7A24937565008BCB5B /* ViewControllers */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		137CAB782493752D008BCB5B /* DotoList */ = {
+			isa = PBXGroup;
+			children = (
+				137CAB7C24937597008BCB5B /* ViewControllers */,
+				137CAB7D249375AC008BCB5B /* Cells */,
+				137CAB7E249375C5008BCB5B /* Models */,
+			);
+			path = DotoList;
+			sourceTree = "<group>";
+		};
+		137CAB792493753C008BCB5B /* CreateNewNote */ = {
+			isa = PBXGroup;
+			children = (
+				137CAB8124937689008BCB5B /* ViewControllers */,
+			);
+			path = CreateNewNote;
+			sourceTree = "<group>";
+		};
+		137CAB7A24937565008BCB5B /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				131FE02524801703003D27B6 /* StartViewController.swift */,
-				131FE03524801F10003D27B6 /* ToDoListViewController.swift */,
-				13C882F32482CCFA00B51067 /* DetailViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		131FE038248023E2003D27B6 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				131FE03924802402003D27B6 /* MyTableViewCell.swift */,
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
-		1392B320248D4CCB0081041A /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				13BC2E58248E647F0018E739 /* NotesFileManager.swift */,
-				1392B323248D4F9D0081041A /* DateManager.swift */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
-		13A823BC24802BBD00AD9E26 /* Custom view classes */ = {
-			isa = PBXGroup;
-			children = (
-				13C882F52482CDBC00B51067 /* Views */,
-				131FE038248023E2003D27B6 /* Cells */,
-			);
-			path = "Custom view classes";
-			sourceTree = "<group>";
-		};
-		13C882F52482CDBC00B51067 /* Views */ = {
+		137CAB7B24937579008BCB5B /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				1367C17124803718001C6465 /* GreetingView.swift */,
@@ -124,12 +142,69 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		13C882F62482CDCA00B51067 /* Models */ = {
+		137CAB7C24937597008BCB5B /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				13BC2E56248E618C0018E739 /* NoteCodable.swift */,
+				131FE03524801F10003D27B6 /* ToDoListViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		137CAB7D249375AC008BCB5B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				131FE03924802402003D27B6 /* MyTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		137CAB7E249375C5008BCB5B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				137CAB802493765D008BCB5B /* NoteModel */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		137CAB802493765D008BCB5B /* NoteModel */ = {
+			isa = PBXGroup;
+			children = (
+				13BC2E56248E618C0018E739 /* NoteModel.swift */,
+				13BC2E58248E647F0018E739 /* NotesFileManager.swift */,
+			);
+			path = NoteModel;
+			sourceTree = "<group>";
+		};
+		137CAB8124937689008BCB5B /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				13C882F32482CCFA00B51067 /* DetailViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		137CAB82249376A7008BCB5B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				131FE02A24801703003D27B6 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		137CAB83249376C8008BCB5B /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				131FE02F24801703003D27B6 /* Info.plist */,
+			);
+			path = Configurations;
+			sourceTree = "<group>";
+		};
+		1392B320248D4CCB0081041A /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				1392B323248D4F9D0081041A /* DateManager.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,9 +285,10 @@
 			files = (
 				131FE03624801F10003D27B6 /* ToDoListViewController.swift in Sources */,
 				1392B324248D4F9D0081041A /* DateManager.swift in Sources */,
+				132AB26324938A1C00B75219 /* UIColor+Ex.swift in Sources */,
 				1367C17224803718001C6465 /* GreetingView.swift in Sources */,
 				131FE02624801703003D27B6 /* StartViewController.swift in Sources */,
-				13BC2E57248E618C0018E739 /* NoteCodable.swift in Sources */,
+				13BC2E57248E618C0018E739 /* NoteModel.swift in Sources */,
 				131FE02224801703003D27B6 /* AppDelegate.swift in Sources */,
 				131FE03A24802402003D27B6 /* MyTableViewCell.swift in Sources */,
 				13BC2E59248E647F0018E739 /* NotesFileManager.swift in Sources */,
@@ -354,7 +430,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J7WFZB9557;
-				INFOPLIST_FILE = TodoList/Info.plist;
+				INFOPLIST_FILE = TodoList/Configurations/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -362,7 +438,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = sl.slavik.TodoList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -372,7 +448,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J7WFZB9557;
-				INFOPLIST_FILE = TodoList/Info.plist;
+				INFOPLIST_FILE = TodoList/Configurations/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -380,7 +456,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = sl.slavik.TodoList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

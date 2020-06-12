@@ -6,6 +6,12 @@ class DetailViewController: UIViewController {
     private var note: Note?
          
     //MARK: - GUI roperties
+    lazy var backgroumdImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
+    
     lazy var noteTittleLabel: UILabel = {
         let label = UILabel()
         label.text = "Tittle"
@@ -46,16 +52,18 @@ class DetailViewController: UIViewController {
     
     lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
-        datePicker.datePickerMode = .date
+        datePicker.datePickerMode = .dateAndTime
         datePicker.setDate(Date(), animated: true)
+        datePicker.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.5)
+        datePicker.layer.cornerRadius = 20
         return datePicker
     }()
     
     lazy var createNoteButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Create note", for: .normal)
-        button.tintColor = .black
-        button.backgroundColor  = .orange
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor  = .systemPink
         button.layer.borderColor = UIColor.black.cgColor
         button.layer.borderWidth = 1
         button.layer.cornerRadius = 20
@@ -74,6 +82,8 @@ class DetailViewController: UIViewController {
     //MARK: - Private methods
     private func setGuiElements() {
         self.view.backgroundColor = .yellow
+        self.backgroumdImageView.image = UIImage(named: "backgroundImage")
+        self.view.addSubview(self.backgroumdImageView)
         self.view.addSubview(self.noteTittleLabel)
         self.view.addSubview(self.noteDescriptionLabel)
         self.view.addSubview(self.noteTittleTextField)
@@ -92,6 +102,11 @@ class DetailViewController: UIViewController {
     //MARK: - Constraints
     private func setConstrasints() {
         let safeArea = self.view.safeAreaLayoutGuide
+        self.backgroumdImageView.snp.makeConstraints { (make) in
+            make.top.equalTo(safeArea.snp.top)
+            make.left.right.bottom.equalToSuperview()
+        }
+        
         self.noteTittleLabel.snp.makeConstraints { (make) in
             make.top.equalTo(safeArea.snp.top).inset(8)
             make.left.right.equalToSuperview().inset(16)
