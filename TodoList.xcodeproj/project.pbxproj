@@ -16,6 +16,7 @@
 		13259C4C248B854D00D00F71 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 13259C4B248B854D00D00F71 /* SnapKit */; };
 		132AB26324938A1C00B75219 /* UIColor+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132AB26224938A1C00B75219 /* UIColor+Ex.swift */; };
 		135485C92493AFA000FFECEF /* MainStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135485C82493AFA000FFECEF /* MainStyleViewController.swift */; };
+		13654BAD2494CAA100F84146 /* NotificationName+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13654BAC2494CAA100F84146 /* NotificationName+Ex.swift */; };
 		1367C17224803718001C6465 /* GreetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1367C17124803718001C6465 /* GreetingView.swift */; };
 		1392B324248D4F9D0081041A /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1392B323248D4F9D0081041A /* DateManager.swift */; };
 		13BC2E57248E618C0018E739 /* NoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BC2E56248E618C0018E739 /* NoteModel.swift */; };
@@ -34,6 +35,7 @@
 		131FE03924802402003D27B6 /* MyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableViewCell.swift; sourceTree = "<group>"; };
 		132AB26224938A1C00B75219 /* UIColor+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ex.swift"; sourceTree = "<group>"; };
 		135485C82493AFA000FFECEF /* MainStyleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStyleViewController.swift; sourceTree = "<group>"; };
+		13654BAC2494CAA100F84146 /* NotificationName+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Ex.swift"; sourceTree = "<group>"; };
 		1367C17124803718001C6465 /* GreetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingView.swift; sourceTree = "<group>"; };
 		1392B323248D4F9D0081041A /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		13BC2E56248E618C0018E739 /* NoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteModel.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				132AB26224938A1C00B75219 /* UIColor+Ex.swift */,
+				13654BAC2494CAA100F84146 /* NotificationName+Ex.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				1392B324248D4F9D0081041A /* DateManager.swift in Sources */,
 				132AB26324938A1C00B75219 /* UIColor+Ex.swift in Sources */,
 				1367C17224803718001C6465 /* GreetingView.swift in Sources */,
+				13654BAD2494CAA100F84146 /* NotificationName+Ex.swift in Sources */,
 				131FE02624801703003D27B6 /* StartViewController.swift in Sources */,
 				13BC2E57248E618C0018E739 /* NoteModel.swift in Sources */,
 				131FE02224801703003D27B6 /* AppDelegate.swift in Sources */,

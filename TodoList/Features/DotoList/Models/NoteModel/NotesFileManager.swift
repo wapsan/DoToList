@@ -33,12 +33,11 @@ class NotesFileManager {
         self._noteList = noteList
     }
     
-    //MARK: - Publick methods
-//    func loadNoteList() -> [Note] {
-//        self.fethcNoteList()
-//        return self.noteList
-//    }
+    private func postNoteListChangedNotification() {
+        NotificationCenter.default.post(name: .noteListWasChanged, object: nil)
+    }
     
+    //MARK: - Publick methods
     func addNote(_ note: Note) {
         self._noteList.append(note)
         self.updateNotelist()
@@ -69,5 +68,6 @@ class NotesFileManager {
                 print(error.localizedDescription)
             }
         }
+        self.postNoteListChangedNotification()
     }
 }

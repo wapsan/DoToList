@@ -4,12 +4,10 @@ import SnapKit
 class MainStyleViewController: UIViewController {
     
     //MARK: - Properties
-    var safeArea: UILayoutGuide {
-        return self.view.safeAreaLayoutGuide
-    }
-    
+    lazy var safeArea = self.view.safeAreaLayoutGuide
+   
     //MARK: - GUI Properties
-    lazy var backgroumdImageView: UIImageView = {
+    private lazy var backgroumdImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         return imageView

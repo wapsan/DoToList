@@ -7,11 +7,11 @@ class MyTableViewCell: UITableViewCell {
     static let reuseID = "MyTableViewCell"
     
     //MARK: - Private properties
-    private lazy var conteinerViewInset: CGFloat = 8
+    private lazy var conteinerViewInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     private lazy var edgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     
     //MARK: - GUI Properties
-    lazy var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Tittle label"
         label.font = .boldSystemFont(ofSize: 20)
@@ -21,7 +21,7 @@ class MyTableViewCell: UITableViewCell {
         return label
     }()
     
-    lazy var descriptionLabel: UILabel = {
+    private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "Detail label text"
         label.font = .systemFont(ofSize: 17)
@@ -29,7 +29,7 @@ class MyTableViewCell: UITableViewCell {
         return label
     }()
     
-    lazy var dateLabel: UILabel = {
+    private lazy var dateLabel: UILabel = {
         let label = UILabel()
         return label
     }()
@@ -42,7 +42,7 @@ class MyTableViewCell: UITableViewCell {
     }()
     
     private lazy var containerView: UIView = {
-       let view = UIView()
+        let view = UIView()
         view.backgroundColor = .white
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOffset = .init(width: 0, height: 5)
@@ -50,7 +50,6 @@ class MyTableViewCell: UITableViewCell {
         view.layer.cornerRadius = 20
         view.layer.borderColor = UIColor.black.cgColor
         view.layer.borderWidth = 1
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -66,8 +65,10 @@ class MyTableViewCell: UITableViewCell {
     }
     
     //MARK: - Publick methods
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    func setUpCell(for note: Note) {
+        self.titleLabel.text = note.noteTitle
+        self.descriptionLabel.text = note.noteDescription
+        self.dateLabel.text = note.date
     }
     
     //MARK: - Private methods
@@ -86,13 +87,14 @@ class MyTableViewCell: UITableViewCell {
     }
     
     private func setUpCell() {
+        self.backgroundColor = .clear
         self.selectionStyle = .none
     }
     
     //MARK: - Constraints
     private func setUpConstraints() {
         self.containerView.snp.makeConstraints { (make) in
-            make.top.left.right.bottom.equalToSuperview().inset(self.conteinerViewInset)
+            make.top.left.right.bottom.equalToSuperview().inset(self.conteinerViewInsets)
         }
         
         self.titleLabel.snp.makeConstraints { (make) in

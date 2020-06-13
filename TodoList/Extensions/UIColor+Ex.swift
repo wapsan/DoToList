@@ -5,5 +5,4 @@ extension UIColor {
                                     green: 32 / 255,
                                     blue: 196 / 255,
                                     alpha: 1)
-    
 }

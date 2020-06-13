@@ -1,4 +1,5 @@
 import UIKit
+import SnapKit
 
 class DetailViewController: MainStyleViewController {
     
@@ -8,7 +9,7 @@ class DetailViewController: MainStyleViewController {
     private lazy var itemsHeight: CGFloat = 50
     
     //MARK: - GUI roperties
-    lazy var noteTittleLabel: UILabel = {
+    private lazy var noteTittleLabel: UILabel = {
         let label = UILabel()
         label.text = "Tittle"
         label.font = .boldSystemFont(ofSize: 20)
@@ -17,7 +18,7 @@ class DetailViewController: MainStyleViewController {
         return label
     }()
     
-    lazy var noteDescriptionLabel: UILabel = {
+    private lazy var noteDescriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "Description"
         label.font = .boldSystemFont(ofSize: 20)
@@ -26,27 +27,23 @@ class DetailViewController: MainStyleViewController {
         return label
     }()
     
-    lazy var noteTittleTextField: UITextField = {
+    private lazy var noteTittleTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
-        textField.delegate = self
-        textField.tag = 1
         textField.font = .systemFont(ofSize: 17)
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
     
-    lazy var noteDescriptionTextField: UITextField = {
+    private lazy var noteDescriptionTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
-        textField.delegate = self
-        textField.tag = 2
         textField.font = .systemFont(ofSize: 17)
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
     
-    lazy var datePicker: UIDatePicker = {
+    private lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .dateAndTime
         datePicker.setDate(Date(), animated: true)
@@ -55,7 +52,7 @@ class DetailViewController: MainStyleViewController {
         return datePicker
     }()
     
-    lazy var createNoteButton: UIButton = {
+    private lazy var createNoteButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Create note", for: .normal)
         button.setTitleColor(.black, for: .normal)
@@ -152,7 +149,7 @@ class DetailViewController: MainStyleViewController {
         guard let noteTittle = self.noteTittleTextField.text,
             noteTittle != "" else { return }
         guard let noteDescription = self.noteDescriptionTextField.text else { return }
-        let date = DateManager.shared.getFormateDate(from: self.datePicker.date)
+        let date = DateManager.shared.getFormatedStringDate(from: self.datePicker.date)
         let note = Note(title: noteTittle, description: noteDescription, date: date)
         if let note = self.note {
             note.noteTitle = noteTittle
@@ -164,24 +161,4 @@ class DetailViewController: MainStyleViewController {
         }
         self.resetTextFields()
     }
-}
-
-//MARK: - UITextFieldDelegate
-extension DetailViewController: UITextFieldDelegate {
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        guard let textFromTextField = textField.text else { return false}
-        if textField.tag == 1 {
-            self.noteTittleLabel.text = textFromTextField
-            self.note?.noteTitle = textFromTextField
-            textField.text = nil
-        } else {
-            self.noteDescriptionLabel.text = textFromTextField
-            self.note?.noteDescription = textFromTextField
-            textField.text = nil
-        }
-        return true
-    }
-    
 }

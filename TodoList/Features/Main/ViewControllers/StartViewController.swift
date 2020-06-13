@@ -36,7 +36,7 @@ class StartViewController: MainStyleViewController {
         self.view.addSubview(self.greetingView)
         self.setUpNavigationBar()
         self.setUpConstrains()
-        self.setUpGreetingview()
+        self.setUpGreetingviewLayout()
     }
     
     private func setUpNavigationBar() {
@@ -44,15 +44,15 @@ class StartViewController: MainStyleViewController {
         self.navigationController?.navigationBar.isTranslucent = false
     }
     
-    private func setUpGreetingview() {
+    private func setUpGreetingviewLayout() {
         self.greetingView.iconImageView.setNeedsLayout()
         self.greetingView.iconImageView.layoutIfNeeded()
         self.greetingView.iconImageView.layer.cornerRadius = self.greetingView.iconImageView.frame.height / 2
     }
     
-    private func pushTodoList() {
+    private func pushTodoListViewController() {
         let toDoListVC = ToDoListViewController()
-        self.navigationController?.pushViewController( toDoListVC, animated: true)
+        self.navigationController?.pushViewController(toDoListVC, animated: true)
     }
     
     //MARK: - Constraints
@@ -73,7 +73,7 @@ class StartViewController: MainStyleViewController {
     
     //MARK: - Actions
     @objc func myNotesButtonPressed() {
-        self.pushTodoList()
+        self.pushTodoListViewController()
     }
 }
 

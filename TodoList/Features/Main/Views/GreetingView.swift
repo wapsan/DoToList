@@ -4,10 +4,10 @@ import SnapKit
 class GreetingView: UIView {
     
     //MARK: - Private properties
-    private var edgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+    private lazy var edgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     
     //MARK: - GUI Properties
-    lazy var greetingLabel: UILabel = {
+    private lazy var greetingLabel: UILabel = {
         let label = UILabel()
         label.text = "Hello, User"
         label.textAlignment = .center

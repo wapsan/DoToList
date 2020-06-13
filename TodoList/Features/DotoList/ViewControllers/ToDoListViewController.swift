@@ -4,10 +4,20 @@ import SnapKit
 class ToDoListViewController: MainStyleViewController {
 
     //MARK: - Private properties
-    private var noteList: [Note] = NotesFileManager.shared.noteList
-
+    private lazy var noteList: [Note] = NotesFileManager.shared.noteList
+    private lazy var isNoteListChanged: Bool = false
+    
     //MARK: - GUI Properties
-    lazy var tableView: UITableView = {
+    private lazy var noNoteLabel: UILabel  = {
+        let label = UILabel()
+        label.text = "No notes yet."
+        label.font = .boldSystemFont(ofSize: 25)
+        label.textColor = .white
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
@@ -19,28 +29,58 @@ class ToDoListViewController: MainStyleViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setUpMainView()
-        self.setUpConstrains()
+        self.setUpViewController()
         self.setUpNavigationBar()
+        self.addObserverForChangingNoteList()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.noteList = NotesFileManager.shared.noteList
-        self.tableView.reloadData()
+        if self.isNoteListChanged {
+            self.noteList = NotesFileManager.shared.noteList
+            self.setUpViewController()
+            self.isNoteListChanged = false
+        }
     }
     
     //MARK: - Private methods
-    private func setUpMainView() {
-        self.title = "To do list"
-        self.tableView.backgroundColor = .clear
-        self.view.addSubview(self.tableView)
+    private func setUpViewController() {
+        self.title = "My notes"
+        if self.noteList.isEmpty {
+            self.removeTableNoteList()
+            self.addNoNoteLabel()
+        } else {
+            self.removeNoNoteLablel()
+            self.addTableNoteList()
+            self.tableView.reloadData()
+        }
     }
     
+    private func addTableNoteList() {
+        self.view.addSubview(self.tableView)
+        self.tableView.backgroundColor = .clear
+        self.activateTableConstraints()
+    }
+    
+    private func removeTableNoteList() {
+        self.tableView.snp.removeConstraints()
+        self.tableView.removeFromSuperview()
+    }
+    
+    private func addNoNoteLabel() {
+        self.view.addSubview(self.noNoteLabel)
+        self.activateNoNoteLabelConstraint()
+    }
+    
+    private func removeNoNoteLablel() {
+        self.noNoteLabel.snp.removeConstraints()
+        self.noNoteLabel.removeFromSuperview()
+    }
+        
     private func pushNewNoteVC() {
-        let newNotVC = DetailViewController()
-        newNotVC.title = "New note"
-        self.navigationController?.pushViewController(newNotVC, animated: true)
+        let newNoteVC = DetailViewController()
+        newNoteVC.title = "New note"
+        self.navigationController?.pushViewController(newNoteVC, animated: true)
     }
     
     private func pushEditNoteVC(with note: Note) {
@@ -58,14 +98,32 @@ class ToDoListViewController: MainStyleViewController {
         self.editButtonItem.action = #selector(self.editNoteListButtonPressed)
     }
     
+    private func addObserverForChangingNoteList() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.noteListWasChanged),
+                                               name: .noteListWasChanged,
+                                               object: nil)
+    }
+    
     //MARK: - Constraints
-    private func setUpConstrains() {
+    private func activateTableConstraints() {
         self.tableView.snp.makeConstraints { (make) in
             make.top.left.right.bottom.equalToSuperview()
         }
     }
    
+    private func activateNoNoteLabelConstraint() {
+        self.noNoteLabel.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+        }
+    }
+    
     //MARK: - Actions
+    @objc private func noteListWasChanged() {
+        self.setUpViewController()
+        self.isNoteListChanged = true
+    }
+    
     @objc private func addNoteButtonPressed() {
         self.pushNewNoteVC()
     }
@@ -92,10 +150,7 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
         if let cell = tableView.dequeueReusableCell(withIdentifier: MyTableViewCell.reuseID,
                                                     for: indexPath) as? MyTableViewCell {
             let note = self.noteList[indexPath.row]
-            cell.titleLabel.text = note.noteTitle
-            cell.descriptionLabel.text = note.noteDescription
-            cell.dateLabel.text = note.date
-            cell.backgroundColor = .clear
+            cell.setUpCell(for: note)
             return cell
         } else {
             return UITableViewCell()
