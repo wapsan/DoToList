@@ -166,7 +166,8 @@ extension ToDoListViewController: UITableViewDataSource, UITableViewDelegate {
         if editingStyle == .delete {
             let deletedNoteIndex = indexPath.row
             self.noteList.remove(at: deletedNoteIndex)
-            self.tableView.performBatchUpdates({
+            self.tableView.performBatchUpdates({ [weak self] in
+                guard let self = self else { return }
                 self.tableView.deleteRows(at: [indexPath], with: .automatic)
             }) { (_) in
                 NotesFileManager.shared.removeNote(at: deletedNoteIndex)

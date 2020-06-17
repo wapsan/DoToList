@@ -36,7 +36,7 @@ class NotesFileManager {
     private func postNoteListChangedNotification() {
         NotificationCenter.default.post(name: .noteListWasChanged, object: nil)
     }
-    
+  
     //MARK: - Publick methods
     func addNote(_ note: Note) {
         self._noteList.append(note)
